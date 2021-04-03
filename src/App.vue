@@ -1,11 +1,17 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <router-view />
+    <main-tab-bar activeColor="#ff5777"></main-tab-bar>
+  </div>
 </template>
 
 <script>
+import MainTabBar from "./components/content/mainTabBar/MainTabBar";
 export default {
   name: "App",
-  components: {},
+  components: {
+    MainTabBar
+  }
 };
 </script>
 
