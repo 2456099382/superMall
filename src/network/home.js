@@ -6,8 +6,10 @@ export function getHomeMultidata() {
   });
 }
 
-export function getHomeGoods() {
+export function getHomeGoods(params) {
   return request({
-    url: "/home"
+    url: "/home/data",
+    params,
+    method: "GET"
   });
 }
