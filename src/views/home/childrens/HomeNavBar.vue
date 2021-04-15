@@ -1,9 +1,7 @@
 <template>
   <div>
     <nav-bar class="nav-home">
-      <h1 slot="center">
-        购物街
-      </h1>
+      <h1 slot="center">购物街</h1>
     </nav-bar>
   </div>
 </template>
@@ -13,7 +11,7 @@ import NavBar from "components/common/navbar/NavBar";
 
 export default {
   name: "HomeNavBar",
-  components: { NavBar }
+  components: { NavBar },
 };
 </script>
 
@@ -25,5 +23,13 @@ export default {
 
   width: 100%;
   z-index: 10;
+
+  background: var(--color-tint);
+}
+.nav-home-r h1 {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
 }
 </style>

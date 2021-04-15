@@ -1,35 +1,37 @@
 <template>
   <div class="goods-list">
-    <goods-list-item v-for="item in goodsList" :key="item.iid" :goodsListItem="item" />
+    <goods-list-item
+      v-for="(item, index) in goodsList"
+      :key="index"
+      :goodsListItem="item"
+    />
   </div>
 </template>
 
 <script>
-  import GoodsListItem from './GoodsListItem'
-  export default {
-    components: {
-      GoodsListItem
+import GoodsListItem from "./GoodsListItem";
+export default {
+  components: {
+    GoodsListItem,
+  },
+  name: "GoodsList",
+  props: {
+    goodsList: {
+      type: Array,
+      default() {
+        return [];
+      },
     },
-    name: 'GoodsList',
-    props: {
-      goodsList: {
-        type: Array,
-        default () {
-          return []
-        }
-      }
-    },
-    created() {}
-  }
-
+  },
+  created() {},
+};
 </script>
 
 <style>
-  .goods-list {
-    display: flex;
+.goods-list {
+  display: flex;
 
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 </style>

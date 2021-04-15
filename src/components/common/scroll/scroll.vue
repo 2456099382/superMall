@@ -12,28 +12,57 @@ export default {
   name: "scroll",
   data() {
     return {
-      scroll: null
+      scroll: null,
     };
   },
+  props: {
+    probeType: {
+      type: Number,
+      default() {
+        return 1;
+      },
+    },
+    pullUpLoad: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
+  },
   mounted() {
-    setTimeout(() => {
-      this.init();
-    }, 200);
+    this.scrollInit();
   },
   computed: {},
   methods: {
-    init() {
-      if (this.$refs.wrapper) {
-        this.scroll = new betterScroll(this.$refs.wrapper, {
-          probeType: 3,
-          click: true
+    scrollInit() {
+      this.scroll = new betterScroll(this.$refs.wrapper, {
+        probeType: this.probeType,
+        click: true,
+        pullUpLoad: this.pullUpLoad,
+      });
+
+      this.scrollHandle();
+    },
+    scrollTo(x, y, time = 500) {
+      this.scroll && this.scroll.scrollTo(x, y, time);
+    },
+    scrollHandle() {
+      this.scroll &&
+        this.scroll.on("scroll", (position) => {
+          this.$emit("scroll", position);
         });
-        return;
-      } else {
-        this.init();
-      }
-    }
-  }
+
+      this.scroll &&
+        this.scroll.on("pullingUp", () => {
+          this.$emit("pullend");
+          this.scroll.finishPullUp();
+          // this.scroll.refresh();
+        });
+    },
+    scrollRefresh() {
+      this.scroll && this.scroll.refresh();
+    },
+  },
 };
 </script>
 
@@ -45,6 +74,6 @@ export default {
   left: 0;
   right: 0;
 
-  overflow: scroll;
+  overflow-y: hidden;
 }
 </style>

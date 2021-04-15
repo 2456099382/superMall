@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <main-tab-bar activeColor="#ff5777"></main-tab-bar>
   </div>
 </template>
 
 <script>
-  import MainTabBar from "./components/content/mainTabBar/MainTabBar";
-  export default {
-    name: "App",
-    components: {
-      MainTabBar
-    },
-    mounted() {}
-  };
-
+import MainTabBar from "./components/content/mainTabBar/MainTabBar";
+export default {
+  name: "App",
+  components: {
+    MainTabBar,
+  },
+  mounted() {},
+};
 </script>
 
 <style>
-  @import url("assets/css/base.css");
-
+@import url("assets/css/base.css");
 </style>
