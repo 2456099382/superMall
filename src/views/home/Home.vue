@@ -96,12 +96,13 @@ export default {
   },
   mounted() {
     const refresh = debunce(this.$refs.scroll.scrollRefresh, 500);
+
     this.$bus.$on("imgLoad", () => {
-      refresh();
+      if (this.$route.path.indexOf("/home") != -1) {
+        refresh();
+      }
     });
   },
-  activated() {},
-  deactivated() {},
   methods: {
     /**
      * 网络请求
@@ -176,6 +177,6 @@ export default {
 <style scoped>
 .tab-content {
   position: relative;
-  top: 44px;
+  top: 43px;
 }
 </style>

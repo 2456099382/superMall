@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" ref="wrapper">
+  <div class="wrapper" ref="wrapper" :style="{ top, bottom }">
     <div class="content" ref="content">
       <slot></slot>
     </div>
@@ -27,6 +27,14 @@ export default {
       default() {
         return false;
       },
+    },
+    top: {
+      type: String,
+      default: "44px",
+    },
+    bottom: {
+      type: String,
+      default: "64px",
     },
   },
   mounted() {

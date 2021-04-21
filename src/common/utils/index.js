@@ -5,6 +5,7 @@ export function debunce(fn, delay) {
       clearTimeout(timer);
       timer = null;
     }
+
     timer = setTimeout(() => {
       fn(args);
       // console.log("---");

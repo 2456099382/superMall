@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive exclude="Detail">
       <router-view />
     </keep-alive>
-    <main-tab-bar activeColor="#ff5777"></main-tab-bar>
+    <main-tab-bar activeColor="#ff5777" v-show="tabIsShow"></main-tab-bar>
   </div>
 </template>
 
@@ -11,10 +11,23 @@
 import MainTabBar from "./components/content/mainTabBar/MainTabBar";
 export default {
   name: "App",
+  data() {
+    return {
+      tabIsShow: true,
+    };
+  },
   components: {
     MainTabBar,
   },
-  mounted() {},
+  mounted() {
+    this.$bus.$on("enterDetail", () => {
+      console.log("enter");
+      this.tabIsShow = false;
+    });
+    this.$bus.$on("leaveDetail", () => {
+      this.tabIsShow = true;
+    });
+  },
 };
 </script>
 

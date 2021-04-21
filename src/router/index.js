@@ -7,6 +7,7 @@ const Home = () => import("views/home/Home");
 const Category = () => import("views/category/category");
 const Shop = () => import("views/shop/Shop");
 const Profile = () => import("views/profile/Profile");
+const Detail = () => import("views/detail/Detail");
 
 const originalPush = VueRouter.prototype.push;
 
@@ -37,6 +38,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile
+  },
+  {
+    path: "/detail/:iid",
+    component: Detail
   }
 ];
 const router = new VueRouter({

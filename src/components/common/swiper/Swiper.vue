@@ -8,11 +8,17 @@
     >
       <slot></slot>
     </div>
-    <div class="indicator">
+    <!-- 
+    <div class="indicator" v-show="showIndicator">
       <slot name="indicator"></slot>
-    </div>
-    <div class="indicator">
-      <span></span>
+    </div> -->
+
+    <div class="indicator" v-show="showIndicator">
+      <span
+        :class="{ active: currentIndex - 1 === index }"
+        v-for="(item, index) in slideLength"
+        :key="index"
+      ></span>
     </div>
   </div>
 </template>
@@ -29,39 +35,39 @@ export default {
       swiperStyle: {},
       slideWidth: 0,
       slideCount: 0,
-      swiper: null
+      swiper: null,
+      slideLength: 0,
     };
   },
   props: {
     interval: {
       type: Number,
-      default: 3000
+      default: 3000,
     },
     animation: {
       type: Number,
-      default: 300
+      default: 300,
     },
     showIndicator: {
       type: Boolean,
-      default: true
+      default: true,
     },
     moveRadio: {
       type: Number,
-      default: 0.2
-    }
+      default: 0.2,
+    },
   },
   mounted() {
     this.swiper = document.querySelector(".swiper");
     setTimeout(() => {
       this.handle();
-      this.setPosition();
     }, 200);
   },
   methods: {
     handle() {
       this.slideWidth = this.swiper.offsetWidth;
       const childrens = this.swiper.children;
-
+      this.slideLength = childrens.length;
       if (childrens.length > 1) {
         const firstEle = childrens[0].cloneNode(true);
         const lastEle = childrens[childrens.length - 1].cloneNode(true);
@@ -70,6 +76,9 @@ export default {
         this.swiper.insertBefore(lastEle, childrens[0]);
 
         this.slideCount = this.swiper.children.length;
+
+        this.startTimer();
+        this.setPosition();
       }
     },
     setPosition() {
@@ -82,22 +91,25 @@ export default {
         this.swiper.style.transition = 0;
         this.currentIndex = this.slideCount - 2;
 
-        this.swiper.style.transform = `translateX(${-this.currentIndex *
-          this.slideWidth}px)`;
+        this.swiper.style.transform = `translateX(${
+          -this.currentIndex * this.slideWidth
+        }px)`;
 
         this;
       } else if (this.currentIndex === this.slideCount - 1) {
         this.swiper.style.transition = 0;
         this.currentIndex = 1;
 
-        this.swiper.style.transform = `translateX(${-this.currentIndex *
-          this.slideWidth}px)`;
+        this.swiper.style.transform = `translateX(${
+          -this.currentIndex * this.slideWidth
+        }px)`;
       }
     },
     setStatic() {
       this.swiper.style.transition = this.animation + "ms";
-      this.swiper.style.transform = `translateX(${-this.currentIndex *
-        this.slideWidth}px)`;
+      this.swiper.style.transform = `translateX(${
+        -this.currentIndex * this.slideWidth
+      }px)`;
 
       setTimeout(() => {
         this.swiper.style.transition = "0ms";
@@ -135,9 +147,9 @@ export default {
 
       this.dis = this.currentX - this.startX;
 
-      this.swiper.style.transform = `translateX(${-this.currentIndex *
-        this.slideWidth +
-        this.dis}px)`;
+      this.swiper.style.transform = `translateX(${
+        -this.currentIndex * this.slideWidth + this.dis
+      }px)`;
     },
     touchend() {
       this.startTimer();
@@ -159,8 +171,8 @@ export default {
       }
 
       this.setPosition();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -168,8 +180,30 @@ export default {
 .hy-swiper {
   width: 100vw;
   overflow: hidden;
+  position: relative;
 }
 .swiper {
   display: flex;
+}
+.indicator {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  bottom: 15px;
+
+  width: 100%;
+}
+.indicator span {
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.indicator span.active {
+  background-color: #d43e23;
 }
 </style>

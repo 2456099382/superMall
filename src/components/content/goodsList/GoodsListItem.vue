@@ -1,8 +1,8 @@
 <template>
-  <div class="goods-list-item">
+  <div class="goods-list-item" @click="itemClick">
     <!-- <a :href="goodsListItem.link"> -->
     <img
-      :src="goodsListItem.show.img"
+      :src="goodsListItem.show ? goodsListItem.show.img : goodsListItem.image"
       :alt="goodsListItem.title"
       @load="imgLoad"
     />
@@ -32,6 +32,10 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit("imgLoad");
+    },
+    itemClick() {
+      this.goodsListItem.iid &&
+        this.$router.push("/detail/" + this.goodsListItem.iid);
     },
   },
 };

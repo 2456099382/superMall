@@ -18,7 +18,8 @@ export function request(config) {
 
   intense.interceptors.response.use(
     res => {
-      return res.data.data;
+      const data = res.data.data || res.data;
+      return data;
     },
     err => {
       throw err;
