@@ -1,8 +1,8 @@
 <template>
   <div class="cart-bottom-bar">
     <div class="left">
-      <div class="all-select">
-        <cart-check-button class="check-btn" />
+      <div class="all-select" @click="allSelect">
+        <cart-check-button class="check-btn" :is-active="ieSelectAll" />
         全选
       </div>
       <div class="total">合计:￥{{ totalPrice }}</div>
@@ -22,6 +22,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "CartBottomBar",
   components: { CartCheckButton },
+  data() {
+    return {};
+  },
   computed: {
     ...mapGetters(["cartList"]),
     totalPrice() {
@@ -41,8 +44,25 @@ export default {
         }
       }
       return num;
-    }
-  }
+    },
+    ieSelectAll() {
+      if (this.cartList.length > 0) {
+        const value = !this.cartList.find((item) => !item.checked);
+        return value;
+      } else {
+        return false;
+      }
+    },
+  },
+  methods: {
+    allSelect() {
+      if (this.ieSelectAll) {
+        this.cartList.forEach((item) => (item.checked = false));
+      } else {
+        this.cartList.forEach((item) => (item.checked = true));
+      }
+    },
+  },
 };
 </script>
 

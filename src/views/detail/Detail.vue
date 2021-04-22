@@ -30,9 +30,10 @@ import DetailSwiper from "./children/DetailSwiper";
 import DetailBaseInfo from "./children/DetailBaseInfo";
 import DetailShopInfo from "./children/DetailShopInfo";
 import DetailInfo from "./children/DetailInfo";
-import DetailParamsInfo from "./children/DetailParamsInfo.vue";
+import DetailParamsInfo from "./children/DetailParamsInfo";
 import DetailNavBar from "./children/DetailNavBar";
 import Scroll from "components/common/scroll/scroll";
+
 import DetailCommentInfo from "./children/DetailCommentInfo";
 import DetailRecommendInfo from "./children/DetailRecommendInfo";
 import DetailBottomBar from "./children/DetailBottomBar";
@@ -94,7 +95,6 @@ export default {
         this.topImages = res.result.itemInfo.topImages;
 
         const result = res.result;
-        console.log(result);
         // 基本商品信息
         this.goods = new Goods(
           result.columns,
@@ -185,7 +185,9 @@ export default {
       product.iid = this.goods.iid;
       product.checked = false;
 
-      this.$store.dispatch("addCart", product);
+      this.$store.dispatch("addCart", product).then(res => {
+        this.$toast.show(res, 1500);
+      });
     }
   },
   destroyed() {

@@ -13,21 +13,20 @@ export default {
   name: "App",
   data() {
     return {
-      tabIsShow: true,
+      tabIsShow: true
     };
   },
   components: {
-    MainTabBar,
+    MainTabBar
   },
   mounted() {
     this.$bus.$on("enterDetail", () => {
-      console.log("enter");
       this.tabIsShow = false;
     });
     this.$bus.$on("leaveDetail", () => {
       this.tabIsShow = true;
     });
-  },
+  }
 };
 </script>
 

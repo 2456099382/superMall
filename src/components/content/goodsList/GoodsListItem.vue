@@ -2,7 +2,7 @@
   <div class="goods-list-item" @click="itemClick">
     <!-- <a :href="goodsListItem.link"> -->
     <img
-      :src="goodsListItem.show ? goodsListItem.show.img : goodsListItem.image"
+      v-lazy="goodsListItem.show ? goodsListItem.show.img : goodsListItem.image"
       :alt="goodsListItem.title"
       @load="imgLoad"
     />
@@ -25,8 +25,8 @@ export default {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   created() {},
   methods: {
@@ -36,8 +36,8 @@ export default {
     itemClick() {
       this.goodsListItem.iid &&
         this.$router.push("/detail/" + this.goodsListItem.iid);
-    },
-  },
+    }
+  }
 };
 </script>
 

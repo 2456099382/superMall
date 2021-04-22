@@ -1,7 +1,10 @@
 <template>
   <li class="list-item">
     <div class="item-selector">
-      <cart-check-button @click.native="checkClick" :is-active="isActive" />
+      <cart-check-button
+        @click.native="checkClick"
+        :is-active="product.checked"
+      />
     </div>
     <div class="item-img">
       <img :src="product.img" class="img" alt="" @load="imgLoad" />
